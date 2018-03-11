@@ -4,6 +4,7 @@ import { CategoryService } from './../category.service';
 import { ProductService } from './../product.service';
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../models/product';
+import 'rxjs/add/operator/switchMap'
 
 @Component({
   selector: 'app-products',
@@ -22,15 +23,23 @@ export class ProductsComponent {
     productService: ProductService,
     categoryService: CategoryService) {
 
-    productService.getAll().subscribe(products => this.products = products);
-    this.categories$ =  categoryService.getAll();
+     //observables: go to firebase for all the products
+    productService.getAll().subscribe(products => {
+          this.products = products
 
-    route.queryParamMap.subscribe(params => {
-        this.category = params.get('category');
-        this.filteredProducts = (this.category) ?
-            this.products.filter(p => p.category === this.category) :
-            this.products;
+          //observables: to get the current route paramenters
+          route.queryParamMap.subscribe(params => {
+          this.category = params.get('category');
+
+          //filter of categories in home page
+          this.filteredProducts = (this.category) ?
+              this.products.filter(p => p.category === this.category) :
+              this.products;
+            });
     });
+
+    this.categories$ =  categoryService.getAll();
+   
   } 
 
 }
