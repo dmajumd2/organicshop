@@ -1,6 +1,4 @@
 import { ActivatedRoute } from '@angular/router';
-import { CategoryService } from './../category.service';
-
 import { ProductService } from './../product.service';
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../models/product';
@@ -15,13 +13,13 @@ export class ProductsComponent {
 
   products: Product[] = [];
   filteredProducts: Product[] = [];
-  categories$;
+  
   category: String;
 
   constructor(
     route: ActivatedRoute,
-    productService: ProductService,
-    categoryService: CategoryService) {
+    productService: ProductService
+    ) {
 
      //observables: go to firebase for all the products
     productService.getAll().subscribe(products => {
@@ -38,7 +36,6 @@ export class ProductsComponent {
             });
     });
 
-    this.categories$ =  categoryService.getAll();
    
   } 
 
