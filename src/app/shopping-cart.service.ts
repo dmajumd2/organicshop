@@ -1,5 +1,7 @@
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Injectable } from '@angular/core';
+import { Product } from './models/product';
+import 'rxjs/add/operator/take';
 
 @Injectable()
 export class ShoppingCartService {
@@ -17,22 +19,33 @@ export class ShoppingCartService {
     return this.db.object('/shopping-carts/' + cartId);
   }
 
+  private getItem(cartId: string, productId: string){
+    return this.db.object('/shopping-carts/' + cartId + '/items/' + productId);
+  }
+
   //this function will search the cartid in locatstorage, if not then from shopping cart
   //service create will call the firebase to add a key to the shopping cart and return that
   // key and set that key to the local storage, so that the key can be used in future
   // for getting info of the users shopping cart from the local storage
-  private async getOrCreateCart(){
+  private async getOrCreateCartId(){
 
     let cartId = localStorage.getItem('cartId');
-      if(!cartId){
-        let result = await this.create();
-        localStorage.setItem('cartId', result.key);
-        return this.getCart(result.key);
-      }  
+      if(cartId) return cartId;     //give cart id that we found in local storage
 
-        return this.getCart(cartId);  //give cart id that we found in local storage
+      let result = await this.create();
+      localStorage.setItem('cartId', result.key);
+      return result.key;
+          
    }
 
+   async addToCart(product: Product){
+     //ref to the users shopping cart
+     let cartId = await this.getOrCreateCartId(); // return observable Promise from firebase
+      let item$ = this.getItem(cartId, product.$key);
+      item$.take(1).subscribe(item => {
+        item$.update({ product: product, quantity: (item.quantity || 0) + 1});
+      });
+   }
 }
 
 // in typescript if we have a async method that return a promise and you want to call
@@ -40,3 +53,4 @@ export class ShoppingCartService {
 // with this we can call async method just like a sync method
 // this will not wait for the result of the promise and will execute exactly like other
 // code
+
