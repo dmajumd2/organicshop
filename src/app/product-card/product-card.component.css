@@ -2,14 +2,9 @@
     padding: 0;
 }
 
-.card {
-    margin-bottom: 30px;
-}
 
-.col {
-    text-align: center;
-    padding-top: 7px;
-}
+
+
 
 .card-footer button {
     cursor: pointer;

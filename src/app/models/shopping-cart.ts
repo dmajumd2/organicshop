@@ -1,3 +1,4 @@
+import { Product } from './product';
 import { ShoppingCartItem } from './shopping-cart-item';
 
 export class ShoppingCart {
@@ -9,6 +10,12 @@ export class ShoppingCart {
         this.items.push(new ShoppingCartItem(item.product, item.quantity));
         }
     }
+
+    //for displaying the quantity when clicking add to cart 
+ getQuantity(product: Product){ 
+    let item = this.itemsMap[product.$key];
+    return item ? item.quantity : 0;
+  }
 
     //to calculate the total price of all items in shopping cart page
     get totalPrice(){
