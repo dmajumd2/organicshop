@@ -15,7 +15,8 @@ export class ShoppingCartService {
   }
 
   //method for reading a shopping cart from firebase
-  private getCart(cartId: string){
+  async getCart(){
+    let cartId = await this.getOrCreateCartId();
     return this.db.object('/shopping-carts/' + cartId);
   }
 
@@ -27,7 +28,7 @@ export class ShoppingCartService {
   //service create will call the firebase to add a key to the shopping cart and return that
   // key and set that key to the local storage, so that the key can be used in future
   // for getting info of the users shopping cart from the local storage
-  private async getOrCreateCartId(){
+  private async getOrCreateCartId() : Promise<string>{
 
     let cartId = localStorage.getItem('cartId');
       if(cartId) return cartId;     //give cart id that we found in local storage
