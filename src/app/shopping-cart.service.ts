@@ -40,13 +40,23 @@ export class ShoppingCartService {
    }
 
    async addToCart(product: Product){
+     this.updateItemQuantity(product, 1);
+   }
+
+  // called when (-) click event trigger fot removing from the cart 
+   async removeFromCart(product: Product){
+    this.updateItemQuantity(product, -1);
+   }
+
+   private async updateItemQuantity(product: Product, change: Number){
      //ref to the users shopping cart
      let cartId = await this.getOrCreateCartId(); // return observable Promise from firebase
-      let item$ = this.getItem(cartId, product.$key);
-      item$.take(1).subscribe(item => {
-        item$.update({ product: product, quantity: (item.quantity || 0) + 1});
-      });
-   }
+     let item$ = this.getItem(cartId, product.$key);
+     item$.take(1).subscribe(item => {
+       item$.update({ product: product, quantity: (item.quantity || 0) + change});
+     });
+   } 
+
 }
 
 // in typescript if we have a async method that return a promise and you want to call

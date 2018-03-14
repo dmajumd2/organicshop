@@ -10,3 +10,7 @@
     text-align: center;
     padding-top: 7px;
 }
+
+.card-footer button {
+    cursor: pointer;
+}

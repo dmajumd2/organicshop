@@ -14,8 +14,14 @@ export class ProductCardComponent {
 
   constructor(private shoppingCartService: ShoppingCartService) { }
 
- addToCart(product: Product){
-    this.shoppingCartService.addToCart(product);   
+  //called from click event from (+) button
+ addToCart(){
+    this.shoppingCartService.addToCart(this.product);   
+ }
+
+ //called from click event from (-) button
+ removeFromCart(){
+  this.shoppingCartService.removeFromCart(this.product);
  }
 
  //for displaying the quantity when clicking add to cart 
