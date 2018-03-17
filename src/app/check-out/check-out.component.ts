@@ -41,7 +41,7 @@ export class CheckOutComponent implements OnInit, OnDestroy{
   //placing data to db from checkout page via order service 
   async placeOrder() {
     let order = new Order(this.userId, this.shipping, this.cart); // order.ts model
-    let result = await this.orderService.storeOrder(order);
+    let result = await this.orderService.placeOrder(order);
     this.router.navigate(['/order-success', result.key]);
   }    
 }
