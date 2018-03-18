@@ -1,11 +1,11 @@
-import { OrderService } from './order.service';
-import { ShoppingCartService } from './shopping-cart.service';
-import { ProductService } from './product.service';
-import { CategoryService } from './category.service';
-import { AdminAuthGuard } from './admin-auth-guard.service';
-import { UserService } from './user.service';
-import { AuthGuard } from './auth-guard.service';
-import { AuthService } from './auth.service';
+import { OrderService } from './shared/services/order.service';
+import { ShoppingCartService } from './shared/services/shopping-cart.service';
+import { ProductService } from './shared/services/product.service';
+import { CategoryService } from './shared/services/category.service';
+import { AdminAuthGuard } from './shared/services/admin-auth-guard.service';
+import { UserService } from './shared/services/user.service';
+import { AuthGuard } from './shared/services/auth-guard.service';
+import { AuthService } from './shared/services/auth.service';
 import { environment } from './../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -49,10 +49,10 @@ import { ShippingFormComponent } from './shipping-form/shipping-form.component';
     AdminProductsComponent,
     AdminOrdersComponent,
     LoginComponent,
-    ProductFormComponent,
-    ProductFilterComponent,
     ProductCardComponent,
     ProductQuantityComponent,
+    ProductFormComponent,
+    ProductFilterComponent,
     ShoppingCartSummaryComponent,
     ShippingFormComponent
   ],
