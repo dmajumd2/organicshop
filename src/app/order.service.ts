@@ -12,4 +12,17 @@ export class OrderService {
     this.shoppingCartService.clearCart(); //clear the cart after placing order
     return result;
   }
+
+  getOrders(){
+    return this.db.list('/orders');
+  }
+
+  getOrdersByUsers(userId: string){
+    return this.db.list('/orders', {
+      query: {
+        orderByChild: 'userId',
+        equalTo: userId
+      }
+    });
+  }
 }
