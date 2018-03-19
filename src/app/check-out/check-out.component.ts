@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 })
 
 export class CheckOutComponent implements OnInit, OnDestroy{ 
-  shipping = {}; 
+  shipping = <any>{}; 
   cart: ShoppingCart;
   cartSubscription: Subscription;
   userId: string;
