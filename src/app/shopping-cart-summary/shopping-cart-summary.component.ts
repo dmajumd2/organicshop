@@ -1,3 +1,4 @@
+import { ShoppingCartItem } from './../shared/models/shopping-cart-item';
 import { ShoppingCart } from '../shared/models/shopping-cart';
 import { Component, OnInit, Input } from '@angular/core';
 
